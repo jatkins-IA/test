@@ -127,11 +127,19 @@ export default function Home() {
       </section>
 
       <section className="hero section-frame" id="top">
+        <div
+          className="hero-preview-stamp"
+          data-testid="hero-preview-stamp"
+          aria-label="Now testing, patch 003"
+        >
+          <span>Now testing</span>
+          <strong>PATCH / 003</strong>
+        </div>
         <div className="hero-copy">
           <div className="eyebrow">
             <span>GitHub-backed demo</span>
             <span className="eyebrow-line" />
-            <span>Build 002</span>
+            <span>Build 003</span>
           </div>
           <h1>
             Make changes.
@@ -194,7 +202,7 @@ export default function Home() {
                 />
               ))}
             </div>
-            <div className="panel-stamp">PATCH / 002</div>
+            <div className="panel-stamp">PATCH / 003</div>
           </div>
           <div className="orbit-label orbit-label-top">file edit</div>
           <div className="orbit-label orbit-label-bottom">site update</div>
