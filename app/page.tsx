@@ -9,6 +9,14 @@ const accents = [
   { name: "Sky blue", value: "#6bcbff" },
 ];
 
+const buildStages = [
+  "FILE EDITS",
+  "GITHUB PUSHES",
+  "LIVE PREVIEWS",
+  "PRODUCTION DEPLOYS",
+  "VISIBLE RESULTS",
+];
+
 const files = [
   {
     path: "app/page.tsx",
@@ -33,6 +41,12 @@ const files = [
 ];
 
 const initialChanges = [
+  {
+    id: "002",
+    title: "Build loop put in motion",
+    note: "A new hero banner carries the workflow from edit to live result.",
+    tag: "design",
+  },
   {
     id: "001",
     title: "Demo site assembled",
@@ -87,12 +101,37 @@ export default function Home() {
         </a>
       </header>
 
+      <section
+        className="hero-banner"
+        data-testid="hero-banner"
+        aria-label="Live build loop: file edits, GitHub pushes, live previews, production deploys, and visible results"
+      >
+        <div className="hero-banner-status">
+          <span className="status-dot" aria-hidden="true" />
+          <span>Live build loop</span>
+        </div>
+        <div className="hero-banner-viewport" aria-hidden="true">
+          <div className="hero-banner-track">
+            {[0, 1].map((copy) => (
+              <div className="hero-banner-set" key={copy}>
+                {buildStages.map((stage) => (
+                  <span className="hero-banner-item" key={`${copy}-${stage}`}>
+                    <span>{stage}</span>
+                    <b>✦</b>
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="hero section-frame" id="top">
         <div className="hero-copy">
           <div className="eyebrow">
             <span>GitHub-backed demo</span>
             <span className="eyebrow-line" />
-            <span>Build 001</span>
+            <span>Build 002</span>
           </div>
           <h1>
             Make changes.
@@ -155,28 +194,12 @@ export default function Home() {
                 />
               ))}
             </div>
-            <div className="panel-stamp">PATCH / 001</div>
+            <div className="panel-stamp">PATCH / 002</div>
           </div>
           <div className="orbit-label orbit-label-top">file edit</div>
           <div className="orbit-label orbit-label-bottom">site update</div>
         </div>
       </section>
-
-      <div className="ticker" aria-label="Demo capabilities">
-        <div>
-          <span>FILE EDITS</span>
-          <b>✦</b>
-          <span>GITHUB PUSHES</span>
-          <b>✦</b>
-          <span>LIVE PREVIEWS</span>
-          <b>✦</b>
-          <span>RESPONSIVE UI</span>
-          <b>✦</b>
-          <span>FILE EDITS</span>
-          <b>✦</b>
-          <span>GITHUB PUSHES</span>
-        </div>
-      </div>
 
       <section className="playground section-frame" id="playground">
         <div className="section-heading">
