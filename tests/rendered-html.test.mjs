@@ -41,6 +41,8 @@ test("server-renders the Patchbay demo", async () => {
   assert.match(html, /data-testid="hero-banner"/);
   assert.match(html, /Live build loop/);
   assert.match(html, /PRODUCTION DEPLOYS/);
+  assert.match(html, /data-testid="hero-preview-stamp"/);
+  assert.match(html, /Now testing/);
   assert.match(html, /Interaction playground/);
   assert.match(html, /data-testid="run-patch"/);
   assert.match(html, /public\/og\.jpg|\/og\.jpg/);
