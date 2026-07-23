@@ -1,4 +1,4 @@
-import { access, cp, mkdir, rm } from "node:fs/promises";
+import { access, copyFile, mkdir, readdir, rm } from "node:fs/promises";
 import { resolve } from "node:path";
 import type { Plugin } from "vite";
 
@@ -11,6 +11,22 @@ async function exists(path: string): Promise<boolean> {
       return false;
     }
     throw error;
+  }
+}
+
+async function copyDirectory(source: string, destination: string) {
+  await mkdir(destination, { recursive: true });
+  const entries = await readdir(source, { withFileTypes: true });
+
+  for (const entry of entries) {
+    const sourcePath = resolve(source, entry.name);
+    const destinationPath = resolve(destination, entry.name);
+
+    if (entry.isDirectory()) {
+      await copyDirectory(sourcePath, destinationPath);
+    } else {
+      await copyFile(sourcePath, destinationPath);
+    }
   }
 }
 
@@ -33,12 +49,10 @@ export function sites(): Plugin {
       await mkdir(outputDirectory, { recursive: true });
 
       if (await exists(hostingConfig)) {
-        await cp(hostingConfig, resolve(outputDirectory, "hosting.json"));
+        await copyFile(hostingConfig, resolve(outputDirectory, "hosting.json"));
       }
       if (await exists(drizzleSource)) {
-        await cp(drizzleSource, resolve(outputDirectory, "drizzle"), {
-          recursive: true,
-        });
+        await copyDirectory(drizzleSource, resolve(outputDirectory, "drizzle"));
       }
     },
   };
